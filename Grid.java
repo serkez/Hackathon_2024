@@ -19,7 +19,7 @@ public class Grid {
         }
         return false;
     }
-
+/*
     public boolean canPut(TetShape shape, int x, int y){
              boolean[][] array = shape.getArray();
              for (int i = 0; i < (array.length); i++){
@@ -30,6 +30,31 @@ public class Grid {
              }
              return true;
          }
+         */
+
+    public boolean canPut(TetShape shape, int x, int y) {
+        boolean[][] array = shape.getArray();
+        int shapeWidth = array[0].length;
+        int shapeHeight = array.length;
+
+        // Check if the shape exceeds the grid boundaries
+        if (x < 0 || y < 0 || x + shapeWidth > board[0].length || y + shapeHeight > board.length) {
+            return false;
+        }
+
+        // Check if the shape overlaps with any other shape on the grid
+        for (int i = 0; i < shapeHeight; i++) {
+            for (int j = 0; j < shapeWidth; j++) {
+                if (array[i][j] && board[y + i][x + j]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
     public void putShape(TetShape shape, int x, int y){
         shape.setCoordinates(x, y);
         boolean[][] array = shape.getArray();
@@ -37,6 +62,8 @@ public class Grid {
 
             for (int j = 0; j < ( array[0].length); j++) {
                     board[y+i][x+j] = true;
+                    yCounter = y+i;
+                    xCounter = x+i;
                 }
             }
         }

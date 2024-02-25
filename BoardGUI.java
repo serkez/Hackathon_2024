@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 class BoardGUI extends JPanel {
@@ -38,29 +39,33 @@ class BoardGUI extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Example polyominoe
-        TetShape Line_SHAPE = new TetShape(new boolean[][]{
-                {true, false},
-                {true, false},
-                {true, false}
-        }, "Line");
+//        // Example polyominoe
+//        TetShape Line_SHAPE = new TetShape(new boolean[][]{
+//                {true, false},
+//                {true, false},
+//                {true, false}
+//        }, "Line");
+//
+//        TetShape up_L_SHAPE = new TetShape(new boolean[][]{
+//                {true, true},
+//                {true, false},
+//                {true, false}
+//        }, "up-L");
 
-        TetShape up_L_SHAPE = new TetShape(new boolean[][]{
-                {true, true},
-                {true, false},
-                {true, false}
-        }, "up-L");
 
+        ArrayList<TetShape> shapeList = new ArrayList<>();
+        shapeList.add(new TetShape("1"));
+        shapeList.add(new TetShape("2"));
 
         Packer packer = new Packer(height,width);
-        packer.addShapeToPack(Line_SHAPE);
-        packer.addShapeToPack(up_L_SHAPE);
+        packer.addShapeToPack(shapeList.get(0));
+        packer.addShapeToPack(shapeList.get(1));
 
         packer.pack();
 
         // Draw polyominoes
-       // drawShape(g, Line_SHAPE, Color.BLUE);
-        drawShape(g, up_L_SHAPE, Color.PINK);
+        drawShape(g, shapeList.get(0), Color.BLUE);
+        drawShape(g, shapeList.get(1), Color.PINK);
 
     }
 }
