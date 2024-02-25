@@ -297,6 +297,17 @@ public class TetShape {
 
     }
 
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(boolean[] row: array){
+            for(boolean b: row){
+                sb.append(b? "1" : "0").append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
 
 
 }
