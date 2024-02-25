@@ -8,7 +8,9 @@ public class TetShape {
         this.array = shape;
         this.id = id;
     }
-
+    public void setCoordinates(int[][] coordinates){
+        this.coordinates = coordinates;
+    }
     public boolean[][] getArray() {
         return this.array;
     }
@@ -56,7 +58,8 @@ public class TetShape {
 
 
 
-    public static boolean[][] rotateCW(boolean[][] arr) {
+    public static TetShape rotateCW(TetShape tetShape) {
+        boolean[][] arr = tetShape.getArray();
         final int M = arr.length;
         final int N = arr[0].length;
         boolean[][] rotated = new boolean[N][M];
@@ -65,7 +68,8 @@ public class TetShape {
                 rotated[c][M-1-r] = arr[r][c];
             }
         }
-        return rotated;
+        tetShape.setArray(rotated);
+        return tetShape;
     }
 //
 //   @Override
@@ -75,7 +79,7 @@ public class TetShape {
 
     public static void main(String[] args) {
         boolean[][] array = {{false, true, false}, {false, false, true}, {true, false, true}, {true, true, false}};
-
+        TetShape tetShape = new TetShape(array, "1234");
         for (boolean[] row : array) {
             for (boolean val : row) {
                 System.out.print(val + " ");
@@ -84,10 +88,10 @@ public class TetShape {
         }
 
         System.out.println();
-        boolean[][] newArray = rotateCW(array);
+        tetShape = new rotateCW(tetShape);
         System.out.println();
 
-        for (boolean[] row : newArray) {
+        for (boolean[] row : tetShape.getArray()) {
             for (boolean val : row) {
                 System.out.print(val + " ");
             }

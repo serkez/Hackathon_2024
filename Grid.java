@@ -1,7 +1,7 @@
 import java.util.Queue;
 
 public class Grid {
-    private int[][] space;
+    private boolean[][] space;
     public Grid(int length, int width){
         boolean[][] space = new boolean[length][width];
     }
