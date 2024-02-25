@@ -11,8 +11,8 @@ class GridTest {
         TetShape shape = new TetShape("jump");
         packer.addShapeToPack(shape);
         packer.pack();
-        int x = shape.getCoordinates()[0];
-        int y = shape.getCoordinates()[1];
+        int x = shape.getxCoord();
+        int y = shape.getyCoord();
 
         for (boolean[] row: shape.getArray()) {
             for(boolean cell: row){
@@ -23,6 +23,6 @@ class GridTest {
                 y++;
             }
         }
-        assertNotNull(shape.getCoordinates());
+        
     }
 }

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 class BoardGUI extends JPanel {
     private int width;
     private int height;
@@ -16,20 +17,23 @@ class BoardGUI extends JPanel {
     void drawShape(Graphics g, TetShape shape, Color color) {
         g.setColor(color);
 
-        int x = shape.getCoordinates()[0];
-        int y = shape.getCoordinates()[1];
+        int x = shape.getxCoord() * cellSize;
+        int y = shape.getyCoord() * cellSize;
 
-        for (boolean[] row: shape.getArray()) {
-            for(boolean cell: row){
-                if(cell){
-                    g.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+        for (boolean[] row : shape.getArray()) {
+            for (boolean cell : row) {
+                if (cell) {
+                    g.fillRect(x, y, cellSize, cellSize);
                 }
-                y++;
+                x += cellSize; // Move to the next column
             }
-            x++;
+            x = shape.getxCoord() * cellSize; // Reset x-coordinate to the starting column
+            y += cellSize; // Move to the next row
         }
-
     }
+
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -60,4 +64,5 @@ class BoardGUI extends JPanel {
 
     }
 }
+
 

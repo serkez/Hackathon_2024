@@ -42,7 +42,7 @@ public class TetShape {
 
     // Shape 1
     static boolean[][] shape1 = {
-            {true, true}
+            {true}
     };
 
     // Shape 2
@@ -70,21 +70,19 @@ public class TetShape {
 
     // Shape 6
     static boolean[][] shape6 = {
-            {true, true, true},
-            {true, false, false}
+            {true, true, true, true}
     };
 
     // Shape 7
     static boolean[][] shape7 = {
-            {true, false},
-            {true, true},
-            {true, false}
+            {true, false, false},
+            {true, true, true},
+            {false, false, true}
     };
 
     // Shape 8
     static boolean[][] shape8 = {
-            {true, false, false},
-            {true, true, true}
+            {true, true, true, true, true}
     };
 
     // Shape 9
@@ -102,9 +100,9 @@ public class TetShape {
 
     // Shape 11
     static boolean[][] shape11 = {
-            {true, false},
-            {true, false},
-            {true, true}
+            {true, true, false},
+            {false, true, true},
+            {false, false, true}
     };
 
     // Shape 12
@@ -116,9 +114,9 @@ public class TetShape {
 
     // Shape 13
     static boolean[][] shape13 = {
-            {true, false},
-            {true, true},
-            {false, true}
+            {false, true, false},
+            {true, true, true},
+            {false, false, true}
     };
 
     // Shape 14
@@ -136,9 +134,9 @@ public class TetShape {
 
     // Shape 16
     static boolean[][] shape16 = {
-            {true, true},
-            {true, false},
-            {true, false}
+            {false, true, false},
+            {true, true, true},
+            {false, true, false}
     };
 
     // Shape 17
@@ -155,9 +153,8 @@ public class TetShape {
 
     // Shape 19
     static boolean[][] shape19 = {
-            {true, false},
-            {true, true},
-            {true, false}
+            {false, false, false, true},
+            {true, true, true, true}
     };
 
     // Shape 20
@@ -191,10 +188,13 @@ public class TetShape {
         this.yCoord = y;
     }
 
-    public int[] getCoordinates(){
-        return new int[] {xCoord, yCoord};
+    public int getxCoord(){
+        return  xCoord;
     }
 
+    public int getyCoord(){
+        return yCoord;
+    }
 
   /*
     public static final TetShape L_SHAPE = new TetShape(new boolean[][]{

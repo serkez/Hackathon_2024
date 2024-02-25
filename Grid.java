@@ -34,10 +34,10 @@ public class Grid {
         shape.setCoordinates(x, y);
         boolean[][] array = shape.getArray();
         for (int i  = 0; i < (array.length); i++){
+
             for (int j = 0; j < ( array[0].length); j++) {
                     board[y+i][x+j] = true;
                 }
-
             }
         }
 
