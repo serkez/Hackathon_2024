@@ -10,10 +10,22 @@ public class Packer {
     public Packer(int length, int width){
         grid = new Grid(length, width);
     }
+
+    public void addShapeToPack(TetShape shape){
+        shapeQueue.add(shape);
+    }
     
     public void pack(){
         TetShape shape = shapeQueue.remove();
-        
+        while (shape != null){
+            grid.placeShape(shape);
+
+            if(!shapeQueue.isEmpty())
+                shape = shapeQueue.remove();
+            else
+                shape = null;
+        }
+        System.out.println("All shapes finished!");
     }
 
 

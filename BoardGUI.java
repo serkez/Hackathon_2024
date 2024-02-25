@@ -13,36 +13,51 @@ class BoardGUI extends JPanel {
         setPreferredSize(new Dimension(width * cellSize, height * cellSize));
     }
 
-    void drawShape(Graphics g, int[][] shape, Color color) {
+    void drawShape(Graphics g, TetShape shape, Color color) {
         g.setColor(color);
-        for (int[] coord : shape) {
-            int x = coord[0] * cellSize;
-            int y = coord[1] * cellSize;
-            g.fillRect(x, y, cellSize, cellSize);
-            g.setColor(Color.BLACK);
-            g.drawRect(x, y, cellSize, cellSize);
+
+        int x = shape.getCoordinates()[0];
+        int y = shape.getCoordinates()[1];
+
+        for (boolean[] row: shape.getArray()) {
+            for(boolean cell: row){
+                if(cell){
+                    g.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+                y++;
+            }
+            x++;
         }
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Example polyominoe
-        TetShape polyomino1 = new TetShape(new boolean[][]{{true,false}, {0, 1}, {1, 0}}, id);
+        TetShape Line_SHAPE = new TetShape(new boolean[][]{
+                {true, false},
+                {true, false},
+                {true, false}
+        }, "Line");
 
-        TetShape polyomino2 = new TetShape(new int[][]{{0, 0}, {0, 1}, {0, 2}, {1, 1}});
+        TetShape up_L_SHAPE = new TetShape(new boolean[][]{
+                {true, true},
+                {true, false},
+                {true, false}
+        }, "up-L");
 
-        // Example polycubes
-        Polycube polycube1 = new Polycube(new int[][]{{0, 0, 0}, {0, 0, 1}, {0, 0, 2}, {0, 1, 1}});
-        Polycube polycube2 = new Polycube(new int[][]{{0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 1, 0}});
+
+        Packer packer = new Packer(height,width);
+        packer.addShapeToPack(Line_SHAPE);
+        packer.addShapeToPack(up_L_SHAPE);
+
+        packer.pack();
 
         // Draw polyominoes
-        drawShape(g, polyomino1.shape, Color.BLUE);
-        drawShape(g, polyomino2.shape, Color.BLUE);
+       // drawShape(g, Line_SHAPE, Color.BLUE);
+        drawShape(g, up_L_SHAPE, Color.PINK);
 
-        // Draw polycubes
-        drawShape(g, polycube1.shape, Color.RED);
-        drawShape(g, polycube2.shape, Color.RED);
     }
 }
 

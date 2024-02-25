@@ -7,7 +7,7 @@ public class GUI {
         }
 
         private static void createAndShowGUI() {
-            JFrame frame = new JFrame("Polyomino and Polycube Shapes");
+            JFrame frame = new JFrame("Packing Polyominoes");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(new BoardGUI(10, 10, 30));
             frame.pack();

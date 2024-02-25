@@ -1,17 +1,50 @@
 import java.util.Queue;
-
 public class Grid {
-    private boolean[][] space;
+    private boolean[][] board;
+    int xCounter;
+    int yCounter;
+
     public Grid(int length, int width){
-        boolean[][] space = new boolean[length][width];
-    }
-    public boolean placeShape(Queue<TetShape> shape){
-
-        return true;
+        board = new boolean[length][width];
+        xCounter = 0;
+        yCounter = 0;
     }
 
+    public boolean placeShape(TetShape shape){
+        int xCoord = xCounter;
+        int yCoord = yCounter;
+        if(canPut(shape, xCoord, yCoord)){
+            putShape(shape, xCoord, yCoord);
+            return true;
+        }
+        return false;
+    }
 
-}
+    public boolean canPut(TetShape shape, int x, int y){
+             boolean[][] array = shape.getArray();
+             for (int i = 0; i < (array.length); i++){
+                 for (int j = 0; j < ( array[0].length); j++) {
+                     if(array[i][j] && board[y+i][x+j]) //if our shape has this box and there is already something there return false
+                         return false;
+                 }
+             }
+             return true;
+         }
+    public void putShape(TetShape shape, int x, int y){
+        shape.setCoordinates(x, y);
+        boolean[][] array = shape.getArray();
+        for (int i  = 0; i < (array.length); i++){
+            for (int j = 0; j < ( array[0].length); j++) {
+                    board[y+i][x+j] = true;
+                }
+
+            }
+        }
+
+    }
+
+
+
 /*
 public class Grid {
     private int[][] space;
