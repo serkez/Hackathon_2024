@@ -19,6 +19,22 @@ public class Grid {
         }
         return false;
     }
+
+    public boolean placeShape2(TetShape shape){
+        int xCoord = xCounter;
+        int yCoord = yCounter;
+        while(!canPut(shape, xCoord, yCoord)){
+            if(xCoord < board[0].length)
+                xCoord ++;
+            else if(yCoord < board.length){
+                yCoord ++;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
 /*
     public boolean canPut(TetShape shape, int x, int y){
              boolean[][] array = shape.getArray();

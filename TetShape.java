@@ -11,10 +11,10 @@ public class TetShape {
     int xCoord;
     int yCoord;
     static final int STANDARD_SIZE = 6;
-    static Random rand = new Random(223);
+    static Random rand = new Random();
 
     public TetShape(String id) {
-        int randomIndex = rand.nextInt(21 ) + 1;
+        int randomIndex = rand.nextInt(21 );
         this.array = shapes[randomIndex];
 
         this.id = id;
