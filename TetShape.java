@@ -2,6 +2,7 @@ public class TetShape {
     String id;
     boolean[][] array;
     int priority;
+    int[][] coordinates;
 
     public TetShape(boolean[][] shape, String id) {
         this.array = shape;
@@ -53,6 +54,8 @@ public class TetShape {
             {true, false}
     }, "4Line");
 
+
+
     public static boolean[][] rotateCW(boolean[][] arr) {
         final int M = arr.length;
         final int N = arr[0].length;
@@ -91,5 +94,7 @@ public class TetShape {
             System.out.println();
         }
     }
+
+
 
 }
