@@ -79,7 +79,7 @@ public class Grid {
             for (int j = 0; j < ( array[0].length); j++) {
                     board[y+i][x+j] = true;
                     yCounter = y+i;
-                    xCounter = x+i;
+                    xCounter = x+j; //changed i to j
                 }
             }
         }
