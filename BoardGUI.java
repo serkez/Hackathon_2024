@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 class BoardGUI extends JPanel {
@@ -54,18 +55,26 @@ class BoardGUI extends JPanel {
 
 
         ArrayList<TetShape> shapeList = new ArrayList<>();
-        shapeList.add(new TetShape("1"));
-        shapeList.add(new TetShape("2"));
+        for (int i = 0; i < 5; i++) {
+            shapeList.add(new TetShape("" + i));
+        }
 
         Packer packer = new Packer(height,width);
-        packer.addShapeToPack(shapeList.get(0));
-        packer.addShapeToPack(shapeList.get(1));
+
+        for (int i = 0; i < 3; i++) {
+            packer.addShapeToPack(shapeList.get(i));
+        }
+
+        Random rand = new Random();
 
         packer.pack();
 
         // Draw polyominoes
-        drawShape(g, shapeList.get(0), Color.BLUE);
-        drawShape(g, shapeList.get(1), Color.PINK);
+        for (int i = 0; i < 3; i++) {
+            drawShape(g, shapeList.get(i), Color.getHSBColor(rand.nextFloat(), rand.nextFloat(), rand.nextFloat()));
+
+        }
+
 
     }
 }

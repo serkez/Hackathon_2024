@@ -1,12 +1,12 @@
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class Position {
+public class Position {
 
 	private int row;
 	private int col;
 
-	public Position(char row, char col){
+	public Position(int row, int col){
 		this.row = row;
 		this.col = col;
 	}
@@ -17,6 +17,14 @@ public abstract class Position {
 
 	public int getCol() {
 		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
 	}
 
 	@Override

@@ -10,42 +10,60 @@ public class Grid {
         yCounter = 0;
     }
 
+
     public boolean placeShape(TetShape shape) {
-        int xCoord = xCounter;
-        int yCoord = yCounter;
-        if (canPut(shape, xCoord, yCoord)) {
-            putShape(shape, xCoord, yCoord);
+        Position pos = new Position(yCounter, xCounter);
+        if(attemptToPlace(shape, pos)){
+            putShape(shape,pos);
             return true;
+        }
+        else {
+            shape = TetShape.rotateCW(shape);
+            if(attemptToPlace(shape, pos)){
+                putShape(shape,pos);
+                return true;
+            }
+            else {
+                shape = TetShape.rotateCW(shape);
+                if(attemptToPlace(shape, pos)){
+                    putShape(shape,pos);
+                    return true;
+                }
+            }
         }
         return false;
     }
 
-    public boolean placeShape2(TetShape shape) {
-        int xCoord = xCounter;
-        int yCoord = yCounter;
+    public boolean attemptToPlace(TetShape shape, Position pos){
+        int xCoord = pos.getCol();
+        int yCoord = pos.getRow();
+
         while (!canPut(shape, xCoord, yCoord)) {
             if (xCoord < board[0].length)
                 xCoord++;
             else if (yCoord < board.length) {
                 yCoord++;
+                xCoord = xCounter;
             } else {
                 return false;
             }
         }
+        pos.setCol(xCoord);
+        pos.setRow(yCoord);
         return true;
     }
-/*
-    public boolean canPut(TetShape shape, int x, int y){
-             boolean[][] array = shape.getArray();
-             for (int i = 0; i < (array.length); i++){
-                 for (int j = 0; j < ( array[0].length); j++) {
-                     if(array[i][j] && board[y+i][x+j]) //if our shape has this box and there is already something there return false
-                         return false;
+    /*
+        public boolean canPut(TetShape shape, int x, int y){
+                 boolean[][] array = shape.getArray();
+                 for (int i = 0; i < (array.length); i++){
+                     for (int j = 0; j < ( array[0].length); j++) {
+                         if(array[i][j] && board[y+i][x+j]) //if our shape has this box and there is already something there return false
+                             return false;
+                     }
                  }
+                 return true;
              }
-             return true;
-         }
-         */
+             */
 /*
     public boolean canPut(TetShape shape, int x, int y) {
         boolean[][] array = shape.getArray();
@@ -70,31 +88,33 @@ public class Grid {
     }
 
  */
-public boolean canPut(TetShape shape, int x, int y) {
-    boolean[][] array = shape.getArray();
-    int shapeWidth = array[0].length;
-    int shapeHeight = array.length;
+    public boolean canPut(TetShape shape, int x, int y) {
+        boolean[][] array = shape.getArray();
+        int shapeWidth = array[0].length;
+        int shapeHeight = array.length;
 
-    // Check if the shape exceeds the grid boundaries
-    if (x < 0 || y < 0 || x + shapeWidth > board[0].length || y + shapeHeight > board.length) {
-        return false;
-    }
+        // Check if the shape exceeds the grid boundaries
+        if (x < 0 || y < 0 || x + shapeWidth > board[0].length || y + shapeHeight > board.length) {
+            return false;
+        }
 
-    // Check if the shape overlaps with any other shape on the grid
-    for (int i = 0; i < shapeHeight; i++) {
-        for (int j = 0; j < shapeWidth; j++) {
-            if (array[i][j] && board[y + i][x + j]) {
-                return false;
+        // Check if the shape overlaps with any other shape on the grid
+        for (int i = 0; i < shapeHeight; i++) {
+            for (int j = 0; j < shapeWidth; j++) {
+                if (array[i][j] && board[y + i][x + j]) {
+                    return false;
+                }
             }
         }
+
+        return true;
     }
 
-    return true;
-}
 
 
-
-    public void putShape(TetShape shape, int x, int y) {
+    public void putShape(TetShape shape, Position pos) {
+        int x = pos.getCol();
+        int y = pos.getRow();
         shape.setCoordinates(x, y);
         boolean[][] array = shape.getArray();
         for (int i = 0; i < (array.length); i++) {
@@ -122,43 +142,3 @@ public boolean canPut(TetShape shape, int x, int y) {
     }
 
 }
-
-/*
-public class Grid {
-    private int[][] space;
-
-    public Grid(int length, int width) {
-        space = new int[length][width];
-    }
-
-    public boolean placeShape(TetShape shape, int x, int y) {
-        boolean[][] boolArrShape = shape.toBooleanArray();
-        if (canPlaceShape(boolArrShape, x, y)) {
-            for (int i = 0; i < boolArrShape.length; i++) {
-                for (int j = 0; j < boolArrShape[0].length; j++) {
-                    if (boolArrShape[i][j]) {
-                        space[x + i][y + j] = 1; // Assuming 1 represents the shape on the grid
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    private boolean canPlaceShape(boolean[][] boolArrShape, int x, int y) {
-        // Check if the shape can be placed without overlapping existing shapes or going out of bounds
-        if (x < 0 || x + boolArrShape.length > space.length || y < 0 || y + boolArrShape[0].length > space[0].length) {
-            return false;
-        }
-        for (int i = 0; i < boolArrShape.length; i++) {
-            for (int j = 0; j < boolArrShape[0].length; j++) {
-                if (boolArrShape[i][j] && space[x + i][y + j] != 0) { // Assuming 0 represents empty space on the grid
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-}
-*/

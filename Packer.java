@@ -18,9 +18,11 @@ public class Packer {
     public void pack(){
         TetShape shape = shapeQueue.remove();
         while (shape != null){
-            grid.placeShape(shape);
-            System.out.println(shape);
-            System.out.println("Board:\n " + grid);
+            boolean placed = grid.placeShape(shape);
+
+            if(!placed){
+                shapeQueue.add(shape);
+            }
             if(!shapeQueue.isEmpty())
                 shape = shapeQueue.remove();
             else
