@@ -57,7 +57,7 @@ class BoardGUI extends JPanel {
 
 
         Queue<TetShape> shapeList = new ArrayDeque<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 12; i++) {
             shapeList.add(new TetShape("" + i));
         }
         Grid grid = new Grid(height, width);
