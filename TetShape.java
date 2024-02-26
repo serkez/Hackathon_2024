@@ -306,6 +306,34 @@ public class TetShape {
         return sb.toString();
     }
 
+    public boolean hasStraightEdge(){
+        boolean straightRightColumn = true;
+        for(boolean[] row: array){
+            if(!row[row.length -1])
+                straightRightColumn = false;
+        }
+
+        boolean straightLeftColumn = true;
+        for(boolean[] row: array){
+            if(!row[0])
+                straightLeftColumn = false;
+        }
+
+        boolean straightTopEdge = true;
+        for (int i = 0; i < array.length; i++) {
+            if(!array[0][i])
+                straightTopEdge = false;
+        }
+
+        boolean straightBottomEdge = true;
+        for (int i = 0; i < array.length; i++) {
+            if(!array[array.length -1][i])
+                straightBottomEdge = false;
+        }
+
+        return straightRightColumn || straightLeftColumn || straightBottomEdge || straightTopEdge;
+    }
+
 
 
 }
