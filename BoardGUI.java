@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Random;
 
 
@@ -54,28 +56,68 @@ class BoardGUI extends JPanel {
 //        }, "up-L");
 
 
-        ArrayList<TetShape> shapeList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        Queue<TetShape> shapeList = new ArrayDeque<>();
+        for (int i = 0; i < 15; i++) {
             shapeList.add(new TetShape("" + i));
         }
+        Grid grid = new Grid(height, width);
+        pack(g, shapeList, grid);
 
-        Packer packer = new Packer(height,width);
 
-        for (int i = 0; i < 3; i++) {
-            packer.addShapeToPack(shapeList.get(i));
-        }
 
+
+
+//
+//        Packer packer = new Packer(height,width);
+//
+//        for (int i = 0; i < 3; i++) {
+//            packer.addShapeToPack(shapeList.get(i));
+//        }
+//
+//        Random rand = new Random();
+//
+//        packer.pack();
+//
+//        // Draw polyominoes
+//        for (int i = 0; i < 3; i++) {
+//            drawShape(g, shapeList.get(i), Color.getHSBColor(rand.nextFloat(), rand.nextFloat(), rand.nextFloat()));
+//
+//        }
+
+
+    }
+
+    public void pack(Graphics g, Queue<TetShape> shapeQueue, Grid grid){
+        long startTime = System.currentTimeMillis();
+        int totalShapes = shapeQueue.size();
+        int counter = 0;
         Random rand = new Random();
+        TetShape shape = shapeQueue.remove();
+        while (shape != null){
+            boolean placed = grid.placeShape(shape);
+            counter ++;
+            if(placed){
+                drawShape(g, shape, Color.getHSBColor(rand.nextFloat(), rand.nextFloat(), rand.nextFloat()));
+            }
+            else {
+                shapeQueue.add(shape);
+            }
+            if(!shapeQueue.isEmpty())
+                shape = shapeQueue.remove();
+            else
+                shape = null;
 
-        packer.pack();
+            if(counter / 5 == 1){
+                counter = 0;
+                grid.switchPreferedIncrementer();
+            }
 
-        // Draw polyominoes
-        for (int i = 0; i < 3; i++) {
-            drawShape(g, shapeList.get(i), Color.getHSBColor(rand.nextFloat(), rand.nextFloat(), rand.nextFloat()));
-
+            if(System.currentTimeMillis() - startTime > 10 * 1000){
+                System.out.println("Can't pack everything");
+                System.exit(1);
+            }
         }
-
-
+        System.out.println("All shapes finished!");
     }
 }
 

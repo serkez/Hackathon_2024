@@ -7,10 +7,8 @@ public class TetShape {
 
     String id;
     boolean[][] array;
-    int priority;
     int xCoord;
     int yCoord;
-    static final int STANDARD_SIZE = 6;
     static Random rand = new Random();
 
     public TetShape(String id) {

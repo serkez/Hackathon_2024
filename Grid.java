@@ -3,6 +3,7 @@ public class Grid {
     private boolean[][] board;
     int xCounter;
     int yCounter;
+    boolean preferIncrementingX;
 
     public Grid(int length, int width) {
         board = new boolean[length][width];
@@ -29,6 +30,13 @@ public class Grid {
                     putShape(shape,pos);
                     return true;
                 }
+                else {
+                    shape = TetShape.rotateCW(shape);
+                    if (attemptToPlace(shape, pos)) {
+                        putShape(shape, pos);
+                        return true;
+                    }
+                }
             }
         }
         return false;
@@ -39,14 +47,29 @@ public class Grid {
         int yCoord = pos.getRow();
 
         while (!canPut(shape, xCoord, yCoord)) {
-            if (xCoord < board[0].length)
-                xCoord++;
-            else if (yCoord < board.length) {
-                yCoord++;
-                xCoord = xCounter;
-            } else {
-                return false;
+            if(preferIncrementingX){
+                if (xCoord < board[0].length){
+                    xCoord++;
+                }
+                else if (yCoord < board.length) {
+                    yCoord++;
+                    xCoord = 0;
+                } else {
+                    return false;
+                }
             }
+            else {
+                if (yCoord < board.length) {
+                    yCoord++;
+                    xCoord = 0;
+                }
+                else if (xCoord < board[0].length){
+                    xCoord++;
+                } else {
+                    return false;
+                }
+            }
+
         }
         pos.setCol(xCoord);
         pos.setRow(yCoord);
@@ -122,8 +145,6 @@ public class Grid {
             for (int j = 0; j < (array[0].length); j++) {
                 if(array[i][j]) {
                     board[y + i][x + j] = true;
-                    yCounter = y + i;
-                    xCounter = x + j;
                 }
             }
         }
@@ -139,6 +160,10 @@ public class Grid {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public void switchPreferedIncrementer(){
+        preferIncrementingX = !preferIncrementingX;
     }
 
 }
