@@ -112,12 +112,13 @@ class BoardGUI extends JPanel {
                 grid.switchPreferedIncrementer();
             }
 
-            if(System.currentTimeMillis() - startTime > 10 * 1000){
-                System.out.println("Can't pack everything");
-                System.exit(1);
+            if(!shapeQueue.isEmpty() && System.currentTimeMillis() - startTime > 2 * 1000){
+                System.out.println("Why can't you pack for me :( ");
+                ClientCode.main(null);
+                break;
             }
         }
-        System.out.println("All shapes finished!");
+        System.out.println("Goodbye!");
     }
 }
 
